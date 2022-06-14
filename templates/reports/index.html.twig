@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello ReportsController!
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col m-0 p-0">
+			<h1>Hello
+				{{ controller_name }}! ✅</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col s8 l6 m-0 p-0">
+			<p>Please enter the Account ID you'd like to display:</p>
+			<input type="text" id="account_id" placeholder="Account ID">
+			<button type="button" class="waves-effect waves-light btn red-text text-lighten-1" id="btn_query" style="color: #fff !important;">GET DATA</button>
+			<a class="waves-effect waves-light btn" href="{{ path('accounts') }}">SHOW ALL</a>
+            {% if accounts|length == 0 %}
+				<p class="red-text text-lighten-1 message_info">No data available for the supplied Account Id.</p>
+			{% else %}
+   				<p class="red-text text-lighten-1 message_info"></p>
+			{% endif %}
+		</div>
+	</div>
+
+	<div class="row list_items">
+		{% if accounts|length == 0 %}
+			<p class="red-text text-lighten-1 message_info"></p>
+		{% else %}
+   			<p>Aggregated performance for All
+			<b>ACTIVE</b>
+			accounts is listed below:
+			</p>
+			<div class="divider"></div>
+
+			<table class="highlight">
+				<thead>
+					<tr>
+						<th>Account Name</th>
+						<th>Account ID</th>
+						<th>Spend</th>
+						<th>Clicks</th>
+						<th>Impressions</th>
+						<th>Cost per Click</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for account in accounts %}
+						<tr>
+							<td>{{ account._id.accountName }}</td>
+							<td>{{ account._id.accountId }}</td>
+							<td>{{ account.spend }}</td>
+							<td>{{ account.clicks }}</td>
+							<td>{{ account.impressions }}</td>
+							<td>{{ account.costPerClick }}</td>
+						</tr>
+
+					{% endfor %}
+				</tbody>
+			</table>
+		{% endif %}
+	</div>
+
+
+</div>{% endblock %}
